@@ -557,6 +557,11 @@ trap 'cleanup_and_exit 1' INT TERM
 # ==================== Main Entry Point ====================
 
 main() {
+    # If stdin is not a terminal (piped from curl), redirect to /dev/tty
+    if [[ ! -t 0 ]] && [[ -e /dev/tty ]]; then
+        exec < /dev/tty
+    fi
+    
     # Print banner
     print_banner
     

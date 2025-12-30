@@ -28,7 +28,13 @@ Server Toolkit is a lightweight, modular server management solution that downloa
 curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
 ```
 
-### Manual Installation
+This command will:
+- Download and execute the bootstrap script
+- Automatically detect your system language (Chinese/English)
+- Display an interactive menu for you to choose operations
+- Work correctly even when piped through curl
+
+### Alternative: Download First
 
 ```bash
 # Download bootstrap script
