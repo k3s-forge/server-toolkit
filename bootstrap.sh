@@ -387,16 +387,25 @@ show_main_menu() {
 
 import_config_code() {
     log_info "$(msg 'import_config')"
+    # Download dependencies
+    download_script "utils/config-codec.sh"
     download_and_run "workflows/import-config.sh" "interactive"
 }
 
 export_config_code() {
     log_info "$(msg 'export_config')"
+    # Download dependencies
+    download_script "utils/config-codec.sh"
     download_and_run "workflows/export-config.sh" "current"
 }
 
 quick_setup() {
     log_info "$(msg 'quick_setup')"
+    # Download dependencies
+    download_script "utils/config-codec.sh"
+    download_script "components/hostname/generate.sh"
+    download_script "components/hostname/apply.sh"
+    download_script "components/network/detect.sh"
     download_and_run "workflows/quick-setup.sh"
 }
 
