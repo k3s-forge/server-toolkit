@@ -38,32 +38,169 @@ fi
 
 # ==================== Helper Functions ====================
 
+# Get translated text
+msg() {
+    local key="$1"
+    case "$TOOLKIT_LANG" in
+        zh)
+            case "$key" in
+                "banner_title") echo "服务器工具包 v${VERSION}" ;;
+                "banner_subtitle") echo "模块化服务器管理解决方案" ;;
+                "main_menu_title") echo "服务器工具包 - 主菜单" ;;
+                "pre_reinstall_tools") echo "🔧 重装前工具" ;;
+                "post_reinstall_tools") echo "🚀 重装后工具" ;;
+                "utilities") echo "📊 实用工具" ;;
+                "detect_system") echo "检测系统信息" ;;
+                "backup_config") echo "备份当前配置" ;;
+                "plan_network") echo "规划网络配置" ;;
+                "generate_script") echo "生成重装脚本" ;;
+                "base_config") echo "基础配置" ;;
+                "network_config") echo "网络配置" ;;
+                "system_config") echo "系统配置" ;;
+                "k3s_deploy") echo "K3s 部署" ;;
+                "view_report") echo "查看部署报告" ;;
+                "security_cleanup") echo "安全清理" ;;
+                "exit") echo "退出" ;;
+                "select") echo "选择" ;;
+                "base_config_title") echo "基础配置" ;;
+                "setup_ip") echo "配置 IP 地址" ;;
+                "setup_hostname") echo "配置主机名" ;;
+                "setup_dns") echo "配置 DNS" ;;
+                "all_base") echo "全部基础配置" ;;
+                "back") echo "返回主菜单" ;;
+                "network_config_title") echo "网络配置" ;;
+                "setup_tailscale") echo "配置 Tailscale" ;;
+                "optimize_network") echo "网络优化" ;;
+                "all_network") echo "全部网络配置" ;;
+                "system_config_title") echo "系统配置" ;;
+                "setup_chrony") echo "配置时间同步 (Chrony)" ;;
+                "optimize_system") echo "系统优化" ;;
+                "setup_security") echo "安全加固" ;;
+                "all_system") echo "全部系统配置" ;;
+                "k3s_deploy_title") echo "K3s 部署" ;;
+                "deploy_k3s") echo "部署 K3s" ;;
+                "setup_upgrade") echo "配置升级控制器" ;;
+                "deploy_storage") echo "部署存储 (MinIO/Garage)" ;;
+                "full_k3s") echo "完整 K3s 部署" ;;
+                "info") echo "[信息]" ;;
+                "success") echo "[成功]" ;;
+                "warn") echo "[警告]" ;;
+                "error") echo "[错误]" ;;
+                "checking_requirements") echo "检查系统要求..." ;;
+                "requirements_passed") echo "系统要求检查通过" ;;
+                "starting_detection") echo "开始系统检测..." ;;
+                "starting_backup") echo "开始配置备份..." ;;
+                "starting_planning") echo "开始网络规划..." ;;
+                "generating_reinstall") echo "生成重装脚本..." ;;
+                "downloading") echo "下载中" ;;
+                "executing") echo "执行中" ;;
+                "completed") echo "完成" ;;
+                "failed") echo "失败" ;;
+                "cleaning_up") echo "清理临时文件..." ;;
+                "cleanup_complete") echo "清理完成" ;;
+                "thank_you") echo "感谢使用服务器工具包！" ;;
+                "invalid_choice") echo "无效选择。请选择" ;;
+                "press_enter") echo "按 Enter 继续..." ;;
+                "no_report") echo "未找到部署报告" ;;
+                "report_after_deploy") echo "报告将在部署后生成" ;;
+                "starting_cleanup") echo "开始安全清理..." ;;
+                *) echo "$key" ;;
+            esac
+            ;;
+        *)
+            case "$key" in
+                "banner_title") echo "Server Toolkit v${VERSION}" ;;
+                "banner_subtitle") echo "Modular Server Management Solution" ;;
+                "main_menu_title") echo "Server Toolkit - Main Menu" ;;
+                "pre_reinstall_tools") echo "🔧 Pre-Reinstall Tools" ;;
+                "post_reinstall_tools") echo "🚀 Post-Reinstall Tools" ;;
+                "utilities") echo "📊 Utilities" ;;
+                "detect_system") echo "Detect System Information" ;;
+                "backup_config") echo "Backup Current Configuration" ;;
+                "plan_network") echo "Plan Network Configuration" ;;
+                "generate_script") echo "Generate Reinstall Script" ;;
+                "base_config") echo "Base Configuration" ;;
+                "network_config") echo "Network Configuration" ;;
+                "system_config") echo "System Configuration" ;;
+                "k3s_deploy") echo "K3s Deployment" ;;
+                "view_report") echo "View Deployment Report" ;;
+                "security_cleanup") echo "Security Cleanup" ;;
+                "exit") echo "Exit" ;;
+                "select") echo "Select" ;;
+                "base_config_title") echo "Base Configuration" ;;
+                "setup_ip") echo "Setup IP Addresses" ;;
+                "setup_hostname") echo "Setup Hostname" ;;
+                "setup_dns") echo "Setup DNS" ;;
+                "all_base") echo "All Base Configuration" ;;
+                "back") echo "Back to Main Menu" ;;
+                "network_config_title") echo "Network Configuration" ;;
+                "setup_tailscale") echo "Setup Tailscale" ;;
+                "optimize_network") echo "Network Optimization" ;;
+                "all_network") echo "All Network Configuration" ;;
+                "system_config_title") echo "System Configuration" ;;
+                "setup_chrony") echo "Setup Time Sync (Chrony)" ;;
+                "optimize_system") echo "System Optimization" ;;
+                "setup_security") echo "Security Hardening" ;;
+                "all_system") echo "All System Configuration" ;;
+                "k3s_deploy_title") echo "K3s Deployment" ;;
+                "deploy_k3s") echo "Deploy K3s" ;;
+                "setup_upgrade") echo "Setup Upgrade Controller" ;;
+                "deploy_storage") echo "Deploy Storage (MinIO/Garage)" ;;
+                "full_k3s") echo "Full K3s Deployment" ;;
+                "info") echo "[INFO]" ;;
+                "success") echo "[SUCCESS]" ;;
+                "warn") echo "[WARN]" ;;
+                "error") echo "[ERROR]" ;;
+                "checking_requirements") echo "Checking system requirements..." ;;
+                "requirements_passed") echo "System requirements check passed" ;;
+                "starting_detection") echo "Starting system detection..." ;;
+                "starting_backup") echo "Starting configuration backup..." ;;
+                "starting_planning") echo "Starting network planning..." ;;
+                "generating_reinstall") echo "Generating reinstall script..." ;;
+                "downloading") echo "Downloading" ;;
+                "executing") echo "Executing" ;;
+                "completed") echo "Completed" ;;
+                "failed") echo "Failed" ;;
+                "cleaning_up") echo "Cleaning up temporary files..." ;;
+                "cleanup_complete") echo "Cleanup complete" ;;
+                "thank_you") echo "Thank you for using Server Toolkit!" ;;
+                "invalid_choice") echo "Invalid choice. Please select" ;;
+                "press_enter") echo "Press Enter to continue..." ;;
+                "no_report") echo "No deployment report found" ;;
+                "report_after_deploy") echo "Report will be generated after deployment" ;;
+                "starting_cleanup") echo "Starting security cleanup..." ;;
+                *) echo "$key" ;;
+            esac
+            ;;
+    esac
+}
+
 print_banner() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════════════════════╗"
     echo "║                                                            ║"
-    echo "║                    Server Toolkit v${VERSION}                  ║"
+    echo "║              $(msg 'banner_title')              ║"
     echo "║                                                            ║"
-    echo "║          Modular Server Management Solution                ║"
+    echo "║        $(msg 'banner_subtitle')        ║"
     echo "║                                                            ║"
     echo "╚════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
 
 log_info() {
-    echo -e "${CYAN}[INFO]${NC} $*"
+    echo -e "${CYAN}$(msg 'info')${NC} $*"
 }
 
 log_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $*"
+    echo -e "${GREEN}$(msg 'success')${NC} $*"
 }
 
 log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $*"
+    echo -e "${YELLOW}$(msg 'warn')${NC} $*"
 }
 
 log_error() {
-    echo -e "${RED}[ERROR]${NC} $*" >&2
+    echo -e "${RED}$(msg 'error')${NC} $*" >&2
 }
 
 # Check if command exists
@@ -73,7 +210,7 @@ has_cmd() {
 
 # Check system requirements
 check_requirements() {
-    log_info "Checking system requirements..."
+    log_info "$(msg 'checking_requirements')"
     
     local missing_cmds=()
     
@@ -100,7 +237,7 @@ check_requirements() {
         exit 1
     fi
     
-    log_success "System requirements check passed"
+    log_success "$(msg 'requirements_passed')"
 }
 
 # ==================== Download Manager ====================
@@ -114,7 +251,7 @@ download_script() {
     # Create directory if needed
     mkdir -p "$(dirname "$local_path")"
     
-    log_info "Downloading: ${script_path}"
+    log_info "$(msg 'downloading'): ${script_path}"
     
     if has_cmd curl; then
         if curl -fsSL --connect-timeout "$DOWNLOAD_TIMEOUT" "$url" -o "$local_path"; then
@@ -128,7 +265,7 @@ download_script() {
         fi
     fi
     
-    log_error "Failed to download: ${script_path}"
+    log_error "$(msg 'failed'): ${script_path}"
     return 1
 }
 
@@ -144,13 +281,16 @@ download_and_run() {
     
     local local_path="${SCRIPT_DIR}/${script_path}"
     
-    log_info "Executing: ${script_path}"
+    log_info "$(msg 'executing'): ${script_path}"
+    
+    # Export language setting for child scripts
+    export TOOLKIT_LANG
     
     # Execute with sudo if not root
     if [[ "$(id -u)" -eq 0 ]]; then
         bash "$local_path" "${args[@]}"
     else
-        sudo bash "$local_path" "${args[@]}"
+        sudo TOOLKIT_LANG="$TOOLKIT_LANG" bash "$local_path" "${args[@]}"
     fi
     
     local exit_code=$?
@@ -159,9 +299,9 @@ download_and_run() {
     rm -f "$local_path"
     
     if [[ $exit_code -eq 0 ]]; then
-        log_success "Completed: ${script_path}"
+        log_success "$(msg 'completed'): ${script_path}"
     else
-        log_error "Failed: ${script_path} (exit code: $exit_code)"
+        log_error "$(msg 'failed'): ${script_path} (exit code: $exit_code)"
     fi
     
     return $exit_code
@@ -172,48 +312,48 @@ download_and_run() {
 show_main_menu() {
     echo ""
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
-    echo -e "${CYAN}  Server Toolkit - Main Menu${NC}"
+    echo -e "${CYAN}  $(msg 'main_menu_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${YELLOW}🔧 Pre-Reinstall Tools${NC}"
-    echo "  [1] Detect System Information"
-    echo "  [2] Backup Current Configuration"
-    echo "  [3] Plan Network Configuration"
-    echo "  [4] Generate Reinstall Script"
+    echo -e "${YELLOW}$(msg 'pre_reinstall_tools')${NC}"
+    echo "  [1] $(msg 'detect_system')"
+    echo "  [2] $(msg 'backup_config')"
+    echo "  [3] $(msg 'plan_network')"
+    echo "  [4] $(msg 'generate_script')"
     echo ""
-    echo -e "${YELLOW}🚀 Post-Reinstall Tools${NC}"
-    echo "  [5] Base Configuration"
-    echo "  [6] Network Configuration"
-    echo "  [7] System Configuration"
-    echo "  [8] K3s Deployment"
+    echo -e "${YELLOW}$(msg 'post_reinstall_tools')${NC}"
+    echo "  [5] $(msg 'base_config')"
+    echo "  [6] $(msg 'network_config')"
+    echo "  [7] $(msg 'system_config')"
+    echo "  [8] $(msg 'k3s_deploy')"
     echo ""
-    echo -e "${BLUE}📊 Utilities${NC}"
-    echo "  [9] View Deployment Report"
-    echo "  [10] Security Cleanup"
+    echo -e "${BLUE}$(msg 'utilities')${NC}"
+    echo "  [9] $(msg 'view_report')"
+    echo "  [10] $(msg 'security_cleanup')"
     echo ""
-    echo -e "${RED}[0] Exit${NC}"
+    echo -e "${RED}[0] $(msg 'exit')${NC}"
     echo ""
 }
 
 # ==================== Pre-Reinstall Tools ====================
 
 detect_system() {
-    log_info "Starting system detection..."
+    log_info "$(msg 'starting_detection')"
     download_and_run "pre-reinstall/detect-system.sh"
 }
 
 backup_config() {
-    log_info "Starting configuration backup..."
+    log_info "$(msg 'starting_backup')"
     download_and_run "pre-reinstall/backup-config.sh"
 }
 
 plan_network() {
-    log_info "Starting network planning..."
+    log_info "$(msg 'starting_planning')"
     download_and_run "pre-reinstall/plan-network.sh"
 }
 
 generate_reinstall_script() {
-    log_info "Generating reinstall script..."
+    log_info "$(msg 'generating_reinstall')"
     download_and_run "pre-reinstall/prepare-reinstall.sh"
 }
 
@@ -222,16 +362,16 @@ generate_reinstall_script() {
 base_configuration() {
     echo ""
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
-    echo -e "${CYAN}  Base Configuration${NC}"
+    echo -e "${CYAN}  $(msg 'base_config_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo "  [1] Setup IP Addresses"
-    echo "  [2] Setup Hostname"
-    echo "  [3] Setup DNS"
-    echo "  [4] All Base Configuration"
-    echo "  [0] Back to Main Menu"
+    echo "  [1] $(msg 'setup_ip')"
+    echo "  [2] $(msg 'setup_hostname')"
+    echo "  [3] $(msg 'setup_dns')"
+    echo "  [4] $(msg 'all_base')"
+    echo "  [0] $(msg 'back')"
     echo ""
-    read -p "Select [0-4]: " choice
+    read -p "$(msg 'select') [0-4]: " choice
     
     case $choice in
         1) download_and_run "post-reinstall/base/setup-ip.sh" ;;
@@ -243,22 +383,22 @@ base_configuration() {
             download_and_run "post-reinstall/base/setup-dns.sh"
             ;;
         0) return ;;
-        *) log_error "Invalid choice" ;;
+        *) log_error "$(msg 'invalid_choice')" ;;
     esac
 }
 
 network_configuration() {
     echo ""
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
-    echo -e "${CYAN}  Network Configuration${NC}"
+    echo -e "${CYAN}  $(msg 'network_config_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo "  [1] Setup Tailscale"
-    echo "  [2] Network Optimization"
-    echo "  [3] All Network Configuration"
-    echo "  [0] Back to Main Menu"
+    echo "  [1] $(msg 'setup_tailscale')"
+    echo "  [2] $(msg 'optimize_network')"
+    echo "  [3] $(msg 'all_network')"
+    echo "  [0] $(msg 'back')"
     echo ""
-    read -p "Select [0-3]: " choice
+    read -p "$(msg 'select') [0-3]: " choice
     
     case $choice in
         1) download_and_run "post-reinstall/network/setup-tailscale.sh" ;;
@@ -268,23 +408,23 @@ network_configuration() {
             download_and_run "post-reinstall/network/optimize-network.sh"
             ;;
         0) return ;;
-        *) log_error "Invalid choice" ;;
+        *) log_error "$(msg 'invalid_choice')" ;;
     esac
 }
 
 system_configuration() {
     echo ""
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
-    echo -e "${CYAN}  System Configuration${NC}"
+    echo -e "${CYAN}  $(msg 'system_config_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo "  [1] Setup Time Sync (Chrony)"
-    echo "  [2] System Optimization"
-    echo "  [3] Security Hardening"
-    echo "  [4] All System Configuration"
-    echo "  [0] Back to Main Menu"
+    echo "  [1] $(msg 'setup_chrony')"
+    echo "  [2] $(msg 'optimize_system')"
+    echo "  [3] $(msg 'setup_security')"
+    echo "  [4] $(msg 'all_system')"
+    echo "  [0] $(msg 'back')"
     echo ""
-    read -p "Select [0-4]: " choice
+    read -p "$(msg 'select') [0-4]: " choice
     
     case $choice in
         1) download_and_run "post-reinstall/system/setup-chrony.sh" ;;
@@ -296,23 +436,23 @@ system_configuration() {
             download_and_run "post-reinstall/system/setup-security.sh"
             ;;
         0) return ;;
-        *) log_error "Invalid choice" ;;
+        *) log_error "$(msg 'invalid_choice')" ;;
     esac
 }
 
 k3s_deployment() {
     echo ""
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
-    echo -e "${CYAN}  K3s Deployment${NC}"
+    echo -e "${CYAN}  $(msg 'k3s_deploy_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo "  [1] Deploy K3s"
-    echo "  [2] Setup Upgrade Controller"
-    echo "  [3] Deploy Storage (MinIO/Garage)"
-    echo "  [4] Full K3s Deployment"
-    echo "  [0] Back to Main Menu"
+    echo "  [1] $(msg 'deploy_k3s')"
+    echo "  [2] $(msg 'setup_upgrade')"
+    echo "  [3] $(msg 'deploy_storage')"
+    echo "  [4] $(msg 'full_k3s')"
+    echo "  [0] $(msg 'back')"
     echo ""
-    read -p "Select [0-4]: " choice
+    read -p "$(msg 'select') [0-4]: " choice
     
     case $choice in
         1) download_and_run "post-reinstall/k3s/deploy-k3s.sh" ;;
@@ -324,7 +464,7 @@ k3s_deployment() {
             download_and_run "post-reinstall/k3s/deploy-storage.sh"
             ;;
         0) return ;;
-        *) log_error "Invalid choice" ;;
+        *) log_error "$(msg 'invalid_choice')" ;;
     esac
 }
 
@@ -336,13 +476,13 @@ view_deployment_report() {
     if [[ -f "$report_file" ]]; then
         cat "$report_file"
     else
-        log_warn "No deployment report found"
-        log_info "Report will be generated after deployment"
+        log_warn "$(msg 'no_report')"
+        log_info "$(msg 'report_after_deploy')"
     fi
 }
 
 security_cleanup() {
-    log_info "Starting security cleanup..."
+    log_info "$(msg 'starting_cleanup')"
     download_and_run "utils/cleanup.sh"
 }
 
@@ -351,7 +491,7 @@ security_cleanup() {
 main_loop() {
     while true; do
         show_main_menu
-        read -p "Select [0-10]: " choice
+        read -p "$(msg 'select') [0-10]: " choice
         
         case $choice in
             1) detect_system ;;
@@ -366,16 +506,16 @@ main_loop() {
             10) security_cleanup ;;
             0)
                 echo ""
-                log_info "Thank you for using Server Toolkit!"
+                log_info "$(msg 'thank_you')"
                 cleanup_and_exit 0
                 ;;
             *)
-                log_error "Invalid choice. Please select 0-10."
+                log_error "$(msg 'invalid_choice') 0-10."
                 ;;
         esac
         
         echo ""
-        read -p "Press Enter to continue..."
+        read -p "$(msg 'press_enter')"
     done
 }
 
@@ -384,14 +524,14 @@ main_loop() {
 cleanup_and_exit() {
     local exit_code="${1:-0}"
     
-    log_info "Cleaning up temporary files..."
+    log_info "$(msg 'cleaning_up')"
     
     # Remove temporary directory
     if [[ -d "$SCRIPT_DIR" ]]; then
         rm -rf "$SCRIPT_DIR"
     fi
     
-    log_success "Cleanup complete"
+    log_success "$(msg 'cleanup_complete')"
     exit "$exit_code"
 }
 
