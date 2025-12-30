@@ -17,6 +17,12 @@ else
         */post-reinstall/*)
             TOOLKIT_ROOT="$(dirname "$(dirname "$CURRENT_SCRIPT_DIR")")"
             ;;
+        */workflows)
+            TOOLKIT_ROOT="$(dirname "$CURRENT_SCRIPT_DIR")"
+            ;;
+        */components/*)
+            TOOLKIT_ROOT="$(dirname "$(dirname "$CURRENT_SCRIPT_DIR")")"
+            ;;
         */utils)
             TOOLKIT_ROOT="$(dirname "$CURRENT_SCRIPT_DIR")"
             ;;
@@ -41,4 +47,9 @@ fi
 # Load i18n functions
 if [[ -f "$TOOLKIT_ROOT/utils/i18n.sh" ]]; then
     source "$TOOLKIT_ROOT/utils/i18n.sh"
+fi
+
+# Load config-codec functions
+if [[ -f "$TOOLKIT_ROOT/utils/config-codec.sh" ]]; then
+    source "$TOOLKIT_ROOT/utils/config-codec.sh"
 fi
