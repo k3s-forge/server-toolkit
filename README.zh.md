@@ -159,11 +159,13 @@ server-toolkit/
 
 ## 文档
 
-- [架构说明](docs/ARCHITECTURE.zh.md)
-- [重装前指南](docs/PRE-REINSTALL.zh.md)
-- [重装后指南](docs/POST-REINSTALL.zh.md)
-- [API 参考](docs/API.zh.md)
-- [贡献指南](CONTRIBUTING.zh.md)
+- [文档索引](docs/README.md) - 完整的文档索引
+- [国际化集成指南](docs/I18N-INTEGRATION.md) - 国际化指南
+- [项目创建计划](PROJECT-CREATION-PLAN.md) - 完整的项目计划
+- [当前状态](CURRENT-STATUS.md) - 开发状态
+- [进度总结](PROGRESS-SUMMARY.md) - 详细进度
+- [完成总结](COMPLETION-SUMMARY.md) - 项目完成总结
+- [组件对比](COMPONENT-COMPARISON.md) - 功能对比
 
 ## 系统要求
 
@@ -174,11 +176,27 @@ server-toolkit/
 
 ## 许可证
 
-MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+MIT 许可证
+
+版权所有 (c) 2024 K3s Forge
+
+特此免费授予任何获得本软件及相关文档文件（"软件"）副本的人不受限制地处理软件的权利，包括但不限于使用、复制、修改、合并、发布、分发、再许可和/或销售软件副本的权利，以及允许向其提供软件的人这样做，但须符合以下条件：
+
+上述版权声明和本许可声明应包含在软件的所有副本或主要部分中。
+
+本软件按"原样"提供，不提供任何形式的明示或暗示保证，包括但不限于对适销性、特定用途适用性和非侵权性的保证。在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是在合同诉讼、侵权行为还是其他方面，由软件或软件的使用或其他交易引起、产生或与之相关。
 
 ## 贡献
 
-欢迎贡献！请阅读 [CONTRIBUTING.zh.md](CONTRIBUTING.zh.md) 了解详情。
+欢迎贡献！请：
+
+1. Fork 本仓库
+2. 创建功能分支
+3. 进行修改
+4. 充分测试
+5. 提交 Pull Request
+
+对于重大更改，请先开 Issue 讨论您想要更改的内容。
 
 ## 支持
 

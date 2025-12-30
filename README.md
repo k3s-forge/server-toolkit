@@ -159,11 +159,13 @@ All configuration is done interactively through the menu system. No configuratio
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [Pre-Reinstall Guide](docs/PRE-REINSTALL.md)
-- [Post-Reinstall Guide](docs/POST-REINSTALL.md)
-- [API Reference](docs/API.md)
-- [Contributing](CONTRIBUTING.md)
+- [Documentation Index](docs/README.md) - Complete documentation index
+- [I18N Integration Guide](docs/I18N-INTEGRATION.md) - Internationalization guide
+- [Project Creation Plan](PROJECT-CREATION-PLAN.md) - Complete project plan
+- [Current Status](CURRENT-STATUS.md) - Development status
+- [Progress Summary](PROGRESS-SUMMARY.md) - Detailed progress
+- [Completion Summary](COMPLETION-SUMMARY.md) - Project completion summary
+- [Component Comparison](COMPONENT-COMPARISON.md) - Feature comparison
 
 ## Requirements
 
@@ -174,11 +176,27 @@ All configuration is done interactively through the menu system. No configuratio
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details
+MIT License
+
+Copyright (c) 2024 K3s Forge
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+For major changes, please open an issue first to discuss what you would like to change.
 
 ## Support
 
