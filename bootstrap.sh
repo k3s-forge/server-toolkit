@@ -120,6 +120,9 @@ msg() {
                 "no_report") echo "未找到部署报告" ;;
                 "report_after_deploy") echo "报告将在部署后生成" ;;
                 "starting_cleanup") echo "开始安全清理..." ;;
+                "downloading_utils") echo "下载工具脚本..." ;;
+                "failed_download_utils") echo "工具脚本下载失败" ;;
+                "utils_ready") echo "工具脚本准备就绪" ;;
                 *) echo "$key" ;;
             esac
             ;;
@@ -185,6 +188,9 @@ msg() {
                 "no_report") echo "No deployment report found" ;;
                 "report_after_deploy") echo "Report will be generated after deployment" ;;
                 "starting_cleanup") echo "Starting security cleanup..." ;;
+                "downloading_utils") echo "Downloading utility scripts..." ;;
+                "failed_download_utils") echo "Failed to download utility scripts" ;;
+                "utils_ready") echo "Utility scripts ready" ;;
                 *) echo "$key" ;;
             esac
             ;;
@@ -299,20 +305,27 @@ download_and_run() {
     
     log_info "$(msg 'executing'): ${script_path}"
     
-    # Export language setting for child scripts
+    # Export environment variables for child scripts
     export TOOLKIT_LANG
+    export SCRIPT_DIR
+    export BASE_URL
+    export REPO_OWNER
+    export REPO_NAME
+    export REPO_BRANCH
     
     # Execute with sudo if not root
     if [[ "$(id -u)" -eq 0 ]]; then
         bash "$local_path" "${args[@]}"
     else
-        sudo TOOLKIT_LANG="$TOOLKIT_LANG" bash "$local_path" "${args[@]}"
+        sudo -E bash "$local_path" "${args[@]}"
     fi
     
     local exit_code=$?
     
-    # Cleanup after execution
-    rm -f "$local_path"
+    # Cleanup after execution (but keep utils)
+    if [[ "$script_path" != utils/* ]]; then
+        rm -f "$local_path"
+    fi
     
     if [[ $exit_code -eq 0 ]]; then
         log_success "$(msg 'completed'): ${script_path}"
@@ -556,6 +569,63 @@ trap 'cleanup_and_exit 1' INT TERM
 
 # ==================== Main Entry Point ====================
 
+# ==================== Language Selection ====================
+
+select_language() {
+    echo ""
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}  Language Selection / 语言选择${NC}"
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo "  [1] English"
+    echo "  [2] 中文"
+    echo ""
+    read -p "Select language / 选择语言 [1-2]: " lang_choice
+    
+    case $lang_choice in
+        1)
+            TOOLKIT_LANG="en"
+            ;;
+        2)
+            TOOLKIT_LANG="zh"
+            ;;
+        *)
+            # Default to auto-detect
+            TOOLKIT_LANG=$(detect_language)
+            ;;
+    esac
+    
+    export TOOLKIT_LANG
+}
+
+# ==================== Dependency Management ====================
+
+# Download utility scripts (common.sh, i18n.sh, common-header.sh)
+download_utils() {
+    log_info "$(msg 'downloading_utils')"
+    
+    # Download common.sh
+    if ! download_script "utils/common.sh"; then
+        log_error "$(msg 'failed_download_utils')"
+        return 1
+    fi
+    
+    # Download i18n.sh
+    if ! download_script "utils/i18n.sh"; then
+        log_error "$(msg 'failed_download_utils')"
+        return 1
+    fi
+    
+    # Download common-header.sh
+    if ! download_script "utils/common-header.sh"; then
+        log_error "$(msg 'failed_download_utils')"
+        return 1
+    fi
+    
+    log_success "$(msg 'utils_ready')"
+    return 0
+}
+
 main() {
     # If stdin is not a terminal (piped from curl), redirect to /dev/tty
     if [[ ! -t 0 ]] && [[ -e /dev/tty ]]; then
@@ -570,6 +640,12 @@ main() {
     
     # Create temporary directory
     mkdir -p "$SCRIPT_DIR"
+    
+    # Language selection (interactive)
+    select_language
+    
+    # Download utility scripts first
+    download_utils || exit 1
     
     # Start main loop
     main_loop

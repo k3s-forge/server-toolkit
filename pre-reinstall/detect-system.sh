@@ -4,16 +4,24 @@
 
 set -Eeuo pipefail
 
-# Get script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOOLKIT_ROOT="$(dirname "$SCRIPT_DIR")"
-
-# Load common functions
-if [[ -f "$TOOLKIT_ROOT/utils/common.sh" ]]; then
-    source "$TOOLKIT_ROOT/utils/common.sh"
+# Load common header (handles both standalone and bootstrap execution)
+if [[ -n "${SCRIPT_DIR:-}" ]] && [[ -f "$SCRIPT_DIR/utils/common-header.sh" ]]; then
+    source "$SCRIPT_DIR/utils/common-header.sh"
 else
-    echo "Error: common.sh not found"
-    exit 1
+    # Fallback for standalone execution
+    CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    TOOLKIT_ROOT="$(dirname "$CURRENT_DIR")"
+    
+    if [[ -f "$TOOLKIT_ROOT/utils/common.sh" ]]; then
+        source "$TOOLKIT_ROOT/utils/common.sh"
+    else
+        echo "Error: common.sh not found"
+        exit 1
+    fi
+    
+    if [[ -f "$TOOLKIT_ROOT/utils/i18n.sh" ]]; then
+        source "$TOOLKIT_ROOT/utils/i18n.sh"
+    fi
 fi
 
 # Detect operating system
