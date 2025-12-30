@@ -18,6 +18,22 @@ SCRIPT_DIR="/tmp/server-toolkit-$$"
 DOWNLOAD_TIMEOUT=30
 VERSION="1.0.0"
 
+# Detect language
+detect_language() {
+    local lang="${LANG:-en_US.UTF-8}"
+    case "$lang" in
+        zh_CN*|zh_TW*|zh_HK*|zh_SG*)
+            echo "zh"
+            ;;
+        *)
+            echo "en"
+            ;;
+    esac
+}
+
+# Set language (can be overridden by environment variable)
+TOOLKIT_LANG="${TOOLKIT_LANG:-$(detect_language)}"
+
 # ==================== Colors ====================
 
 if [[ -t 1 ]]; then
