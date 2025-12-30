@@ -25,14 +25,14 @@ Server Toolkit 是一个轻量级、模块化的服务器管理解决方案，�
 ### 一键安装
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
 ```
 
 ### 手动安装
 
 ```bash
 # 下载 bootstrap 脚本
-curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh -o bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh -o bootstrap.sh
 
 # 添加执行权限
 chmod +x bootstrap.sh
@@ -183,8 +183,8 @@ MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 ## 支持
 
 - 文档：[docs/](docs/)
-- 问题反馈：[GitHub Issues](https://github.com/YOUR_ORG/server-toolkit/issues)
-- 讨论：[GitHub Discussions](https://github.com/YOUR_ORG/server-toolkit/discussions)
+- 问题反馈：[GitHub Issues](https://github.com/k3s-forge/server-toolkit/issues)
+- 讨论：[GitHub Discussions](https://github.com/k3s-forge/server-toolkit/discussions)
 
 ## 致谢
 

@@ -144,7 +144,7 @@ post-reinstall/
 
 ```bash
 # 下载 bootstrap.sh
-curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh -o bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh -o bootstrap.sh
 chmod +x bootstrap.sh
 
 # 运行交互式菜单

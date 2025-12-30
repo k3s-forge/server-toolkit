@@ -90,9 +90,9 @@ When adding new documentation:
 
 ## 🔗 External Resources
 
-- **GitHub Repository**: https://github.com/YOUR_ORG/server-toolkit
-- **Issue Tracker**: https://github.com/YOUR_ORG/server-toolkit/issues
-- **Discussions**: https://github.com/YOUR_ORG/server-toolkit/discussions
+- **GitHub Repository**: https://github.com/k3s-forge/server-toolkit
+- **Issue Tracker**: https://github.com/k3s-forge/server-toolkit/issues
+- **Discussions**: https://github.com/k3s-forge/server-toolkit/discussions
 
 ## 📞 Support
 

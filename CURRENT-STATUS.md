@@ -317,7 +317,7 @@ The bootstrap.sh script includes:
 The bootstrap script can be configured via environment variables:
 ```bash
 # GitHub repository
-export REPO_OWNER="YOUR_ORG"
+export REPO_OWNER="k3s-forge"
 export REPO_NAME="server-toolkit"
 export REPO_BRANCH="main"
 

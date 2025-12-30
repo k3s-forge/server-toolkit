@@ -8,7 +8,7 @@ set -euo pipefail
 # ==================== Configuration ====================
 
 # GitHub repository configuration
-REPO_OWNER="${REPO_OWNER:-YOUR_ORG}"
+REPO_OWNER="${REPO_OWNER:-k3s-forge}"
 REPO_NAME="${REPO_NAME:-server-toolkit}"
 REPO_BRANCH="${REPO_BRANCH:-main}"
 BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}"

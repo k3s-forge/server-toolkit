@@ -17,7 +17,7 @@ readonly DEFAULT_MAX_RETRIES=3
 readonly DEFAULT_RETRY_DELAY=2
 
 # GitHub repository configuration
-REPO_OWNER="${REPO_OWNER:-YOUR_ORG}"
+REPO_OWNER="${REPO_OWNER:-k3s-forge}"
 REPO_NAME="${REPO_NAME:-server-toolkit}"
 REPO_BRANCH="${REPO_BRANCH:-main}"
 
@@ -262,7 +262,7 @@ main() {
             echo "    Test download capability"
             echo ""
             echo "Environment variables:"
-            echo "  REPO_OWNER       - GitHub repository owner (default: YOUR_ORG)"
+            echo "  REPO_OWNER       - GitHub repository owner (default: k3s-forge)"
             echo "  REPO_NAME        - GitHub repository name (default: server-toolkit)"
             echo "  REPO_BRANCH      - GitHub branch (default: main)"
             echo "  DOWNLOAD_TIMEOUT - Download timeout in seconds (default: 30)"

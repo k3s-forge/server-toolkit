@@ -25,14 +25,14 @@ Server Toolkit is a lightweight, modular server management solution that downloa
 ### One-Line Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
 ```
 
 ### Manual Installation
 
 ```bash
 # Download bootstrap script
-curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh -o bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh -o bootstrap.sh
 
 # Make it executable
 chmod +x bootstrap.sh
@@ -183,8 +183,8 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 ## Support
 
 - Documentation: [docs/](docs/)
-- Issues: [GitHub Issues](https://github.com/YOUR_ORG/server-toolkit/issues)
-- Discussions: [GitHub Discussions](https://github.com/YOUR_ORG/server-toolkit/discussions)
+- Issues: [GitHub Issues](https://github.com/k3s-forge/server-toolkit/issues)
+- Discussions: [GitHub Discussions](https://github.com/k3s-forge/server-toolkit/discussions)
 
 ## Acknowledgments
 
