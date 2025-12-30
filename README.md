@@ -1,0 +1,197 @@
+# Server Toolkit
+
+> A modular, on-demand server management toolkit with pre-reinstall and post-reinstall workflows.
+
+[中文文档](README.zh.md) | [Documentation](docs/README.md)
+
+## Overview
+
+Server Toolkit is a lightweight, modular server management solution that downloads scripts on-demand and cleans up after execution. It's designed for:
+
+- **Pre-Reinstall**: System detection, configuration backup, network planning
+- **Post-Reinstall**: Base configuration, network setup, system optimization, K3s deployment
+
+## Key Features
+
+- 🚀 **On-Demand Download** - Scripts are downloaded only when needed
+- 🧹 **Auto Cleanup** - Scripts are deleted after execution
+- 📦 **Modular Design** - Each script is independent and focused
+- 🔒 **Security First** - Automatic cleanup of sensitive information
+- 🌐 **Two-Phase Workflow** - Pre-reinstall and post-reinstall separation
+- 📊 **Deployment Reports** - Detailed reports of all operations
+
+## Quick Start
+
+### One-Line Installation
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh | bash
+```
+
+### Manual Installation
+
+```bash
+# Download bootstrap script
+curl -fsSL https://raw.githubusercontent.com/YOUR_ORG/server-toolkit/main/bootstrap.sh -o bootstrap.sh
+
+# Make it executable
+chmod +x bootstrap.sh
+
+# Run
+sudo ./bootstrap.sh
+```
+
+## Usage
+
+### Main Menu
+
+```
+Server Toolkit - Main Menu
+════════════════════════════════════════════════════════════
+
+🔧 Pre-Reinstall Tools
+  [1] Detect System Information
+  [2] Backup Current Configuration
+  [3] Plan Network Configuration
+  [4] Generate Reinstall Script
+
+🚀 Post-Reinstall Tools
+  [5] Base Configuration
+  [6] Network Configuration
+  [7] System Configuration
+  [8] K3s Deployment
+
+[0] Exit
+```
+
+### Pre-Reinstall Workflow
+
+1. **Detect System** - Gather system information
+2. **Backup Config** - Save current configuration
+3. **Plan Network** - Plan IP addresses and hostnames
+4. **Generate Script** - Create reinstall automation script
+
+### Post-Reinstall Workflow
+
+1. **Base Config** - IP addresses, hostname, DNS
+2. **Network** - Tailscale, network optimization
+3. **System** - Time sync, system optimization, security
+4. **K3s** - Deploy K3s cluster
+
+## Architecture
+
+```
+server-toolkit/
+├── bootstrap.sh              # Main entry point (only persistent file)
+├── pre-reinstall/           # Pre-reinstall tools
+│   ├── detect-system.sh
+│   ├── backup-config.sh
+│   ├── plan-network.sh
+│   └── prepare-reinstall.sh
+├── post-reinstall/          # Post-reinstall tools
+│   ├── base/
+│   │   ├── setup-ip.sh
+│   │   ├── setup-hostname.sh
+│   │   └── setup-dns.sh
+│   ├── network/
+│   │   ├── setup-tailscale.sh
+│   │   └── optimize-network.sh
+│   ├── system/
+│   │   ├── setup-chrony.sh
+│   │   ├── optimize-system.sh
+│   │   └── setup-security.sh
+│   └── k3s/
+│       ├── deploy-k3s.sh
+│       ├── setup-upgrade-controller.sh
+│       └── deploy-storage.sh
+└── utils/
+    ├── common.sh            # Common functions
+    ├── download.sh          # Download manager
+    └── cleanup.sh           # Cleanup functions
+```
+
+## Features
+
+### Pre-Reinstall Tools
+
+- **System Detection**: Comprehensive system information gathering
+- **Configuration Backup**: Save all important configurations
+- **Network Planning**: Plan IP addresses, hostnames, and network topology
+- **Reinstall Script**: Generate automated reinstall script
+
+### Post-Reinstall Tools
+
+#### Base Configuration
+- IP address management (IPv4/IPv6)
+- Hostname configuration (FQDN with geo-location)
+- DNS configuration
+
+#### Network Configuration
+- Tailscale zero-trust network
+  - DNS management
+  - MagicDNS
+  - Exit node
+  - Subnet routing
+- Network optimization (BBR, FQ)
+
+#### System Configuration
+- Time synchronization (Chrony)
+- System optimization (kernel parameters, file descriptors)
+- Security hardening
+- SSH optimization
+
+#### K3s Deployment
+- K3s cluster deployment
+- System Upgrade Controller
+- Storage services (MinIO, Garage)
+- Automatic maintenance
+
+## Configuration
+
+All configuration is done interactively through the menu system. No configuration files are required.
+
+## Security
+
+- **Automatic Cleanup**: Sensitive information is automatically cleaned up
+- **Secure Deletion**: Files are securely deleted using shred
+- **History Cleanup**: Bash history is cleaned of sensitive commands
+- **Core Dump Disabled**: Core dumps are disabled to prevent memory leaks
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Pre-Reinstall Guide](docs/PRE-REINSTALL.md)
+- [Post-Reinstall Guide](docs/POST-REINSTALL.md)
+- [API Reference](docs/API.md)
+- [Contributing](CONTRIBUTING.md)
+
+## Requirements
+
+- Linux (Ubuntu 20.04+, Debian 11+, CentOS 8+, Rocky Linux 8+)
+- Bash 4.0+
+- curl or wget
+- Root or sudo access
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## Support
+
+- Documentation: [docs/](docs/)
+- Issues: [GitHub Issues](https://github.com/YOUR_ORG/server-toolkit/issues)
+- Discussions: [GitHub Discussions](https://github.com/YOUR_ORG/server-toolkit/discussions)
+
+## Acknowledgments
+
+Based on the k3s-setup project with significant enhancements and refactoring.
+
+---
+
+**Version**: 1.0.0  
+**Status**: Production Ready  
+**Last Updated**: 2024-12-30
