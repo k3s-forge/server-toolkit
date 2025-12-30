@@ -63,21 +63,28 @@ msg() {
                 "banner_title") echo "服务器工具包 v${VERSION}" ;;
                 "banner_subtitle") echo "模块化服务器管理解决方案" ;;
                 "main_menu_title") echo "服务器工具包 - 主菜单" ;;
-                "pre_reinstall_tools") echo "🔧 重装前工具" ;;
-                "post_reinstall_tools") echo "🚀 重装后工具" ;;
-                "utilities") echo "📊 实用工具" ;;
-                "detect_system") echo "检测系统信息" ;;
-                "backup_config") echo "备份当前配置" ;;
-                "plan_network") echo "规划网络配置" ;;
-                "generate_script") echo "生成重装脚本" ;;
-                "base_config") echo "基础配置" ;;
+                "config_management") echo "配置管理" ;;
+                "import_config") echo "导入配置码" ;;
+                "export_config") echo "导出配置码" ;;
+                "quick_setup") echo "快速配置" ;;
+                "components") echo "独立组件" ;;
+                "hostname_mgmt") echo "主机名管理" ;;
                 "network_config") echo "网络配置" ;;
                 "system_config") echo "系统配置" ;;
-                "k3s_deploy") echo "K3s 部署" ;;
-                "view_report") echo "查看部署报告" ;;
+                "k3s_section") echo "K3s 部署" ;;
+                "k3s_deploy") echo "部署 K3s" ;;
+                "utilities") echo "实用工具" ;;
+                "view_config") echo "查看配置" ;;
                 "security_cleanup") echo "安全清理" ;;
+                "advanced") echo "高级功能" ;;
+                "reinstall_prep") echo "重装准备" ;;
                 "exit") echo "退出" ;;
                 "select") echo "选择" ;;
+                "cancel") echo "取消" ;;
+                "confirm") echo "确认" ;;
+                "back") echo "返回主菜单" ;;
+                "prepare_wizard") echo "重装准备向导" ;;
+                "reinstall_os") echo "生成重装脚本" ;;
                 "base_config_title") echo "基础配置" ;;
                 "setup_ip") echo "配置 IP 地址" ;;
                 "setup_hostname") echo "配置主机名" ;;
@@ -131,21 +138,28 @@ msg() {
                 "banner_title") echo "Server Toolkit v${VERSION}" ;;
                 "banner_subtitle") echo "Modular Server Management Solution" ;;
                 "main_menu_title") echo "Server Toolkit - Main Menu" ;;
-                "pre_reinstall_tools") echo "🔧 Pre-Reinstall Tools" ;;
-                "post_reinstall_tools") echo "🚀 Post-Reinstall Tools" ;;
-                "utilities") echo "📊 Utilities" ;;
-                "detect_system") echo "Detect System Information" ;;
-                "backup_config") echo "Backup Current Configuration" ;;
-                "plan_network") echo "Plan Network Configuration" ;;
-                "generate_script") echo "Generate Reinstall Script" ;;
-                "base_config") echo "Base Configuration" ;;
+                "config_management") echo "Configuration Management" ;;
+                "import_config") echo "Import Config Code" ;;
+                "export_config") echo "Export Config Code" ;;
+                "quick_setup") echo "Quick Setup" ;;
+                "components") echo "Components" ;;
+                "hostname_mgmt") echo "Hostname Management" ;;
                 "network_config") echo "Network Configuration" ;;
                 "system_config") echo "System Configuration" ;;
-                "k3s_deploy") echo "K3s Deployment" ;;
-                "view_report") echo "View Deployment Report" ;;
+                "k3s_section") echo "K3s Deployment" ;;
+                "k3s_deploy") echo "Deploy K3s" ;;
+                "utilities") echo "Utilities" ;;
+                "view_config") echo "View Configuration" ;;
                 "security_cleanup") echo "Security Cleanup" ;;
+                "advanced") echo "Advanced" ;;
+                "reinstall_prep") echo "Reinstall Preparation" ;;
                 "exit") echo "Exit" ;;
                 "select") echo "Select" ;;
+                "cancel") echo "Cancel" ;;
+                "confirm") echo "Confirm" ;;
+                "back") echo "Back to Main Menu" ;;
+                "prepare_wizard") echo "Preparation Wizard" ;;
+                "reinstall_os") echo "Generate Reinstall Script" ;;
                 "base_config_title") echo "Base Configuration" ;;
                 "setup_ip") echo "Setup IP Addresses" ;;
                 "setup_hostname") echo "Setup Hostname" ;;
@@ -344,46 +358,116 @@ show_main_menu() {
     echo -e "${CYAN}  $(msg 'main_menu_title')${NC}"
     echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${YELLOW}$(msg 'pre_reinstall_tools')${NC}"
-    echo "  [1] $(msg 'detect_system')"
-    echo "  [2] $(msg 'backup_config')"
-    echo "  [3] $(msg 'plan_network')"
-    echo "  [4] $(msg 'generate_script')"
+    echo -e "${YELLOW}🔧 $(msg 'config_management')${NC}"
+    echo "  [1] $(msg 'import_config')"
+    echo "  [2] $(msg 'export_config')"
+    echo "  [3] $(msg 'quick_setup')"
     echo ""
-    echo -e "${YELLOW}$(msg 'post_reinstall_tools')${NC}"
-    echo "  [5] $(msg 'base_config')"
-    echo "  [6] $(msg 'network_config')"
-    echo "  [7] $(msg 'system_config')"
-    echo "  [8] $(msg 'k3s_deploy')"
+    echo -e "${YELLOW}⚙️  $(msg 'components')${NC}"
+    echo "  [4] $(msg 'hostname_mgmt')"
+    echo "  [5] $(msg 'network_config')"
+    echo "  [6] $(msg 'system_config')"
     echo ""
-    echo -e "${BLUE}$(msg 'utilities')${NC}"
-    echo "  [9] $(msg 'view_report')"
-    echo "  [10] $(msg 'security_cleanup')"
+    echo -e "${BLUE}🚀 $(msg 'k3s_section')${NC}"
+    echo "  [7] $(msg 'k3s_deploy')"
+    echo ""
+    echo -e "${BLUE}📊 $(msg 'utilities')${NC}"
+    echo "  [8] $(msg 'view_config')"
+    echo ""
+    echo -e "${CYAN}💾 $(msg 'advanced')${NC}"
+    echo "  [9] $(msg 'reinstall_prep')"
     echo ""
     echo -e "${RED}[0] $(msg 'exit')${NC}"
     echo ""
+    echo -e "${CYAN}💡 提示: 安全清理将在退出时自动执行${NC}"
+    echo ""
+}
+
+# ==================== Configuration Management ====================
+
+import_config_code() {
+    log_info "$(msg 'import_config')"
+    download_and_run "workflows/import-config.sh" "interactive"
+}
+
+export_config_code() {
+    log_info "$(msg 'export_config')"
+    download_and_run "workflows/export-config.sh" "current"
+}
+
+quick_setup() {
+    log_info "$(msg 'quick_setup')"
+    download_and_run "workflows/quick-setup.sh"
+}
+
+# ==================== Components ====================
+
+hostname_management() {
+    log_info "$(msg 'hostname_mgmt')"
+    # Download component scripts
+    download_script "components/hostname/generate.sh"
+    download_script "components/hostname/apply.sh"
+    download_and_run "components/hostname/manage.sh"
+}
+
+view_configuration() {
+    echo ""
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}  Current Configuration${NC}"
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    
+    # Show hostname
+    echo "Hostname:"
+    echo "  Short: $(hostname)"
+    echo "  FQDN: $(hostname -f 2>/dev/null || hostname)"
+    echo ""
+    
+    # Show network
+    echo "Network:"
+    if download_script "components/network/detect.sh"; then
+        bash "${SCRIPT_DIR}/components/network/detect.sh" human
+    fi
+    echo ""
+    
+    # Show system
+    echo "System:"
+    echo "  OS: $(grep '^PRETTY_NAME=' /etc/os-release 2>/dev/null | cut -d'"' -f2 || echo 'Unknown')"
+    echo "  Kernel: $(uname -r)"
+    echo "  Timezone: $(timedatectl show -p Timezone --value 2>/dev/null || echo 'Unknown')"
+    echo ""
+}
+
+reinstall_preparation() {
+    echo ""
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}  Reinstall Preparation${NC}"
+    echo -e "${CYAN}════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo "  [1] $(msg 'prepare_wizard')"
+    echo "  [2] $(msg 'reinstall_os')"
+    echo "  [0] $(msg 'back')"
+    echo ""
+    read -p "$(msg 'select') [0-2]: " choice
+    
+    case $choice in
+        1) download_and_run "pre-reinstall/prepare-wizard.sh" ;;
+        2) download_and_run "pre-reinstall/reinstall-os.sh" ;;
+        0) return ;;
+        *) log_error "$(msg 'invalid_choice')" ;;
+    esac
 }
 
 # ==================== Pre-Reinstall Tools ====================
 
-detect_system() {
-    log_info "$(msg 'starting_detection')"
-    download_and_run "pre-reinstall/detect-system.sh"
+prepare_wizard() {
+    i18n_info "starting" "Preparation wizard"
+    download_and_run "pre-reinstall/prepare-wizard.sh"
 }
 
-backup_config() {
-    log_info "$(msg 'starting_backup')"
-    download_and_run "pre-reinstall/backup-config.sh"
-}
-
-plan_network() {
-    log_info "$(msg 'starting_planning')"
-    download_and_run "pre-reinstall/plan-network.sh"
-}
-
-generate_reinstall_script() {
-    log_info "$(msg 'generating_reinstall')"
-    download_and_run "pre-reinstall/prepare-reinstall.sh"
+reinstall_os() {
+    i18n_info "starting" "OS reinstall script generation"
+    download_and_run "pre-reinstall/reinstall-os.sh"
 }
 
 # ==================== Post-Reinstall Tools ====================
@@ -510,36 +594,30 @@ view_deployment_report() {
     fi
 }
 
-security_cleanup() {
-    log_info "$(msg 'starting_cleanup')"
-    download_and_run "utils/cleanup.sh"
-}
-
 # ==================== Main Loop ====================
 
 main_loop() {
     while true; do
         show_main_menu
-        read -p "$(msg 'select') [0-10]: " choice
+        read -p "$(msg 'select') [0-9]: " choice
         
         case $choice in
-            1) detect_system ;;
-            2) backup_config ;;
-            3) plan_network ;;
-            4) generate_reinstall_script ;;
-            5) base_configuration ;;
-            6) network_configuration ;;
-            7) system_configuration ;;
-            8) k3s_deployment ;;
-            9) view_deployment_report ;;
-            10) security_cleanup ;;
+            1) import_config_code ;;
+            2) export_config_code ;;
+            3) quick_setup ;;
+            4) hostname_management ;;
+            5) network_configuration ;;
+            6) system_configuration ;;
+            7) k3s_deployment ;;
+            8) view_configuration ;;
+            9) reinstall_preparation ;;
             0)
                 echo ""
                 log_info "$(msg 'thank_you')"
                 cleanup_and_exit 0
                 ;;
             *)
-                log_error "$(msg 'invalid_choice') 0-10."
+                log_error "$(msg 'invalid_choice') 0-9."
                 ;;
         esac
         
@@ -560,12 +638,22 @@ cleanup_and_exit() {
         rm -rf "$SCRIPT_DIR"
     fi
     
+    # Auto security cleanup (always run)
+    log_info "执行安全清理..."
+    if download_script "utils/cleanup.sh"; then
+        bash "${SCRIPT_DIR}/utils/cleanup.sh" >/dev/null 2>&1 || true
+    fi
+    
     log_success "$(msg 'cleanup_complete')"
+    
+    # Remove trap to avoid recursive call
+    trap - INT TERM EXIT
+    
     exit "$exit_code"
 }
 
 # Trap signals for cleanup
-trap 'cleanup_and_exit 1' INT TERM
+trap 'cleanup_and_exit 1' INT TERM EXIT
 
 # ==================== Main Entry Point ====================
 

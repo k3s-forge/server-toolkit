@@ -1,24 +1,27 @@
-# Server Toolkit
+# Server Toolkit v2.0
 
-> A modular, on-demand server management toolkit with pre-reinstall and post-reinstall workflows.
+> A decoupled, component-based server management toolkit with configuration as code.
 
-[中文文档](README.zh.md) | [Documentation](docs/README.md)
+[中文文档](README.zh.md) | [Quick Start](QUICK-START-V2.md) | [Architecture](ARCHITECTURE.md)
 
 ## Overview
 
-Server Toolkit is a lightweight, modular server management solution that downloads scripts on-demand and cleans up after execution. It's designed for:
+Server Toolkit v2.0 is a completely redesigned server management solution with a decoupled architecture. No longer centered around "reinstall" - it works great for any VPS scenario.
 
-- **Pre-Reinstall**: System detection, configuration backup, network planning
-- **Post-Reinstall**: Base configuration, network setup, system optimization, K3s deployment
+**Perfect for**:
+- 🆕 **New VPS Setup** - Quick configuration without reinstall
+- 📋 **Configuration Cloning** - Export/import configs across servers
+- 🔄 **OS Reinstall** - Backup and restore configuration easily
+- 🎯 **Standardized Deployment** - Use config codes for consistency
 
 ## Key Features
 
-- 🚀 **On-Demand Download** - Scripts are downloaded only when needed
-- 🧹 **Auto Cleanup** - Scripts are deleted after execution
-- 📦 **Modular Design** - Each script is independent and focused
+- 🧩 **Decoupled Components** - Use hostname, network, system tools independently
+- 📝 **Configuration as Code** - Export/import configs as base64 JSON
+- �  **Flexible Workflows** - Quick setup, config management, or full reinstall prep
+- ✅ **K3s Compliant** - Hostname generation follows RFC 1123 standards
+- 🌐 **Multi-Language** - English and Chinese support
 - 🔒 **Security First** - Automatic cleanup of sensitive information
-- 🌐 **Two-Phase Workflow** - Pre-reinstall and post-reinstall separation
-- 📊 **Deployment Reports** - Detailed reports of all operations
 
 ## Quick Start
 
@@ -28,125 +31,211 @@ Server Toolkit is a lightweight, modular server management solution that downloa
 curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
 ```
 
-This command will:
-- Download and execute the bootstrap script
+The script will:
 - Automatically detect your system language (Chinese/English)
-- Display an interactive menu for you to choose operations
+- Prompt for language selection
+- Display an interactive menu
 - Work correctly even when piped through curl
 
-### Alternative: Download First
+### Common Tasks
 
+**Configure a new VPS (no reinstall needed)**:
 ```bash
-# Download bootstrap script
-curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh -o bootstrap.sh
-
-# Make it executable
-chmod +x bootstrap.sh
-
-# Run
-sudo ./bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
+# Select [3] Quick Setup
 ```
 
-## Usage
+**Export configuration for backup**:
+```bash
+# Select [2] Export Config Code
+# Copy and save the config code
+```
 
-### Main Menu
+**Import configuration on another server**:
+```bash
+# Select [1] Import Config Code
+# Paste your config code
+```
+
+**Generate K3s-compliant hostname**:
+```bash
+# Select [4] Hostname Management
+# Choose generation method
+```
+
+See [QUICK-START-V2.md](QUICK-START-V2.md) for detailed examples.
+
+## Menu Structure
 
 ```
 Server Toolkit - Main Menu
 ════════════════════════════════════════════════════════════
 
-🔧 Pre-Reinstall Tools
-  [1] Detect System Information
-  [2] Backup Current Configuration
-  [3] Plan Network Configuration
-  [4] Generate Reinstall Script
+🔧 Configuration Management
+  [1] Import Config Code    - Paste config code, auto-configure
+  [2] Export Config Code    - Generate config code, save backup
+  [3] Quick Setup           - Interactive setup (no reinstall)
 
-🚀 Post-Reinstall Tools
-  [5] Base Configuration
-  [6] Network Configuration
-  [7] System Configuration
-  [8] K3s Deployment
+⚙️  Components
+  [4] Hostname Management   - Generate/apply hostname
+  [5] Network Configuration - IP/gateway/DNS
+  [6] System Configuration  - Time sync/optimize/security
+
+🚀 K3s Deployment
+  [7] Deploy K3s
+
+📊 Utilities
+  [8] View Configuration    - Show current config
+  [9] Security Cleanup      - Clean sensitive data
+
+💾 Advanced
+  [10] Reinstall Preparation - For OS reinstall scenarios
 
 [0] Exit
 ```
 
-### Pre-Reinstall Workflow
+## Configuration as Code
 
-1. **Detect System** - Gather system information
-2. **Backup Config** - Save current configuration
-3. **Plan Network** - Plan IP addresses and hostnames
-4. **Generate Script** - Create reinstall automation script
+Export your server configuration as a portable config code:
 
-### Post-Reinstall Workflow
+```json
+{
+  "version": "1.0",
+  "hostname": {
+    "short": "server01",
+    "fqdn": "server01.k3s.local",
+    "apply": true
+  },
+  "network": {
+    "interface": "eth0",
+    "ip": "192.168.1.100/24",
+    "gateway": "192.168.1.1",
+    "dns": ["8.8.8.8", "8.8.4.4"]
+  },
+  "system": {
+    "timezone": "UTC"
+  }
+}
+```
 
-1. **Base Config** - IP addresses, hostname, DNS
-2. **Network** - Tailscale, network optimization
-3. **System** - Time sync, system optimization, security
-4. **K3s** - Deploy K3s cluster
+Encoded as base64 for easy copy/paste. Import on any server to replicate configuration.
 
 ## Architecture
 
+Server Toolkit v2.0 uses a decoupled, component-based architecture:
+
 ```
-server-toolkit/
-├── bootstrap.sh              # Main entry point (only persistent file)
-├── pre-reinstall/           # Pre-reinstall tools
-│   ├── detect-system.sh
-│   ├── backup-config.sh
-│   ├── plan-network.sh
-│   └── prepare-reinstall.sh
-├── post-reinstall/          # Post-reinstall tools
-│   ├── base/
-│   │   ├── setup-ip.sh
-│   │   ├── setup-hostname.sh
-│   │   └── setup-dns.sh
-│   ├── network/
-│   │   ├── setup-tailscale.sh
-│   │   └── optimize-network.sh
-│   ├── system/
-│   │   ├── setup-chrony.sh
-│   │   ├── optimize-system.sh
-│   │   └── setup-security.sh
-│   └── k3s/
-│       ├── deploy-k3s.sh
-│       ├── setup-upgrade-controller.sh
-│       └── deploy-storage.sh
-└── utils/
-    ├── common.sh            # Common functions
-    ├── download.sh          # Download manager
-    └── cleanup.sh           # Cleanup functions
+bootstrap.sh (Main Entry)
+    │
+    ├── components/          # Atomic components
+    │   ├── hostname/        # Generate/apply hostname
+    │   ├── network/         # Detect/configure network
+    │   └── system/          # System configuration
+    │
+    ├── workflows/           # Composed workflows
+    │   ├── quick-setup.sh   # Quick configuration
+    │   ├── export-config.sh # Export config code
+    │   └── import-config.sh # Import config code
+    │
+    └── utils/               # Utility functions
+        ├── common.sh        # Common functions
+        ├── i18n.sh          # Internationalization
+        └── config-codec.sh  # Config encoding/decoding
 ```
 
-## Features
+**Key Principles**:
+- **Decoupled**: Each component is independent
+- **Composable**: Components can be combined into workflows
+- **Reusable**: Use components standalone or through workflows
+- **Flexible**: Supports both reinstall and non-reinstall scenarios
 
-### Pre-Reinstall Tools
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation.
 
-- **System Detection**: Comprehensive system information gathering
-- **Configuration Backup**: Save all important configurations
-- **Network Planning**: Plan IP addresses, hostnames, and network topology
-- **Reinstall Script**: Generate automated reinstall script
+## Use Cases
 
-### Post-Reinstall Tools
+### 1. New VPS Setup (No Reinstall)
 
-#### Base Configuration
-- IP address management (IPv4/IPv6)
-- Hostname configuration (FQDN with geo-location)
-- DNS configuration
+Perfect for when you just got a new VPS and want to configure it quickly:
 
-#### Network Configuration
-- Tailscale zero-trust network
-  - DNS management
-  - MagicDNS
-  - Exit node
-  - Subnet routing
+```bash
+curl -fsSL https://raw.githubusercontent.com/k3s-forge/server-toolkit/main/bootstrap.sh | bash
+# Select [3] Quick Setup
+# Configure hostname, network, timezone
+# Select [2] Export Config Code (backup)
+```
+
+### 2. Clone Configuration Across Servers
+
+Standardize configuration across multiple servers:
+
+```bash
+# On source server
+# Select [2] Export Config Code
+# Copy the config code
+
+# On each target server
+# Select [1] Import Config Code
+# Paste the config code
+```
+
+### 3. Disaster Recovery
+
+Restore configuration after server failure:
+
+```bash
+# Before disaster (good practice)
+# Select [2] Export Config Code regularly
+
+# After getting new server
+# Select [1] Import Config Code
+# Restore from backup
+```
+
+### 4. OS Reinstall
+
+Prepare for and recover from OS reinstallation:
+
+```bash
+# Before reinstall
+# Select [10] Reinstall Preparation
+# Save restore script and config code
+
+# After reinstall
+bash restore-config-*.sh
+# Or import config code
+```
+
+## Components
+
+### Hostname Management
+
+Generate K3s-compliant hostnames (RFC 1123):
+- **Geo-location based**: `server-hongkong-hk-01`
+- **Simple sequence**: `server-01`
+- **Random suffix**: `server-a1b2c3d4`
+- **Custom input**: With automatic sanitization
+
+Features:
+- Lowercase only, alphanumeric and hyphens
+- Maximum 63 characters
+- Apply immediately or save for config code
+
+### Network Configuration
+
+- Detect current network configuration
+- Configure IP addresses, gateway, DNS
 - Network optimization (BBR, FQ)
+- Tailscale zero-trust network
 
-#### System Configuration
+### System Configuration
+
 - Time synchronization (Chrony)
-- System optimization (kernel parameters, file descriptors)
+- System optimization (kernel parameters)
 - Security hardening
 - SSH optimization
 
-#### K3s Deployment
+### K3s Deployment
+
 - K3s cluster deployment
 - System Upgrade Controller
 - Storage services (MinIO, Garage)
@@ -154,7 +243,12 @@ server-toolkit/
 
 ## Configuration
 
-All configuration is done interactively through the menu system. No configuration files are required.
+All configuration is done through:
+1. **Interactive menus** - User-friendly prompts
+2. **Config codes** - Import/export as base64 JSON
+3. **Quick setup** - Guided wizard for common tasks
+
+No manual configuration files required.
 
 ## Security
 
@@ -165,20 +259,18 @@ All configuration is done interactively through the menu system. No configuratio
 
 ## Documentation
 
+- [Quick Start Guide](QUICK-START-V2.md) - Get started quickly with common tasks
+- [Architecture Documentation](ARCHITECTURE.md) - Detailed architecture and design
+- [Reinstall Script Guide](REINSTALL-SCRIPT-GUIDE.md) - OS reinstallation guide
 - [Documentation Index](docs/README.md) - Complete documentation index
-- [I18N Integration Guide](docs/I18N-INTEGRATION.md) - Internationalization guide
-- [Project Creation Plan](PROJECT-CREATION-PLAN.md) - Complete project plan
-- [Current Status](CURRENT-STATUS.md) - Development status
-- [Progress Summary](PROGRESS-SUMMARY.md) - Detailed progress
-- [Completion Summary](COMPLETION-SUMMARY.md) - Project completion summary
-- [Component Comparison](COMPONENT-COMPARISON.md) - Feature comparison
 
 ## Requirements
 
-- Linux (Ubuntu 20.04+, Debian 11+, CentOS 8+, Rocky Linux 8+)
-- Bash 4.0+
-- curl or wget
-- Root or sudo access
+- **Operating System**: Linux (Ubuntu 20.04+, Debian 11+, CentOS 8+, Rocky Linux 8+)
+- **Shell**: Bash 4.0+
+- **Network**: curl or wget
+- **Privileges**: Root or sudo access
+- **Optional**: jq (for config code features)
 
 ## License
 
@@ -216,6 +308,7 @@ Based on the k3s-setup project with significant enhancements and refactoring.
 
 ---
 
-**Version**: 1.0.0  
+**Version**: 2.0.0  
+**Architecture**: Decoupled Components  
 **Status**: Production Ready  
 **Last Updated**: 2024-12-30
